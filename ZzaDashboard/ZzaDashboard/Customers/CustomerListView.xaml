@@ -26,7 +26,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Place Order"
-                                        Command="{Binding DataContent.PlaceOrderCommand,
+                                        Command="{Binding DataContext.PlaceOrderCommand,
                                             RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                         CommandParameter="{Binding}"
                                         Margin="5"/>

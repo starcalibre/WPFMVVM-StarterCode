@@ -21,6 +21,7 @@ namespace ZzaDashboard.Customers
         }
 
         public RelayCommand<Customer> PlaceOrderCommand { get; private set; }
+        public event Action<Guid> PlaceOrderRequested = delegate { };
 
         public CustomerListViewModel()
         {
@@ -29,7 +30,7 @@ namespace ZzaDashboard.Customers
 
         private void OnPlaceOrder(Customer customer)
         {
-            
+            PlaceOrderRequested(customer.Id);
         }
 
         public async void LoadCustomers()

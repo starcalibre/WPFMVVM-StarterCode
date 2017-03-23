@@ -14,7 +14,6 @@ namespace ZzaDashboard
         private CustomerListViewModel _customerListViewModel = new CustomerListViewModel();
         private OrderViewModel _orderViewModel = new OrderViewModel();
         private OrderPrepViewModel _orderPrepViewModel = new OrderPrepViewModel();
-
         private BindableBase _currentViewModel;
 
         public BindableBase CurrentViewModel
@@ -28,6 +27,7 @@ namespace ZzaDashboard
         public MainWindowViewModel()
         {
             NavCommand = new RelayCommand<string>(OnNav);
+            _customerListViewModel.PlaceOrderRequested += NavToOrder;
         }
 
         private void OnNav(string destination)
@@ -41,6 +41,12 @@ namespace ZzaDashboard
                     CurrentViewModel = _customerListViewModel;
                     break;
             }
+        }
+
+        private void NavToOrder(Guid customerId)
+        {
+            _orderViewModel.CustomerId = customerId;
+            CurrentViewModel = _orderViewModel;
         }
     }
 }
