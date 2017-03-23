@@ -20,6 +20,18 @@ namespace ZzaDashboard.Customers
             set { SetProperty(ref _customers, value); }
         }
 
+        public RelayCommand<Customer> PlaceOrderCommand { get; private set; }
+
+        public CustomerListViewModel()
+        {
+            PlaceOrderCommand = new RelayCommand<Customer>(OnPlaceOrder);
+        }
+
+        private void OnPlaceOrder(Customer customer)
+        {
+            
+        }
+
         public async void LoadCustomers()
         {
             Customers = new ObservableCollection<Customer>(
