@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZzaDashboard.Customers
 {
-    class CustomerListViewModel
+    class CustomerListViewModel : BindableBase
     {
     }
 }
