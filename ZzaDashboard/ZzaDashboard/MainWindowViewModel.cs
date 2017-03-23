@@ -22,5 +22,25 @@ namespace ZzaDashboard
             get { return _currentViewModel; }
             set { SetProperty(ref _currentViewModel, value); }
         }
+
+        public RelayCommand<string> NavCommand { get; private set; }
+
+        public MainWindowViewModel()
+        {
+            NavCommand = new RelayCommand<string>(OnNav);
+        }
+
+        private void OnNav(string destination)
+        {
+            switch (destination)
+            {
+                case "orderPrep":
+                    CurrentViewModel = _orderPrepViewModel;
+                    break;
+                default:
+                    CurrentViewModel = _customerListViewModel;
+                    break;
+            }
+        }
     }
 }
