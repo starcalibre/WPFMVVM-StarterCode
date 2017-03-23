@@ -6,10 +6,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZzaDesktop
+namespace ZzaDashboard
 {
     public class BindableBase : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
         protected virtual void SetProperty<T>(ref T member, T val,
             [CallerMemberName] string propertyName = null)
         {
@@ -23,6 +25,5 @@ namespace ZzaDesktop
         {
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
     }
 }

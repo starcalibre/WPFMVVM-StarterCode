@@ -9,12 +9,18 @@ using ZzaDashboard.Orders;
 
 namespace ZzaDashboard
 {
-    class MainWindowViewModel
+    class MainWindowViewModel : BindableBase
     {
         private CustomerListViewModel _customerListViewModel = new CustomerListViewModel();
         private OrderViewModel _orderViewModel = new OrderViewModel();
         private OrderPrepViewModel _orderPrepViewModel = new OrderPrepViewModel();
 
-        public Object CurrentViewModel { get; set; }
+        private BindableBase _currentViewModel;
+
+        public BindableBase CurrentViewModel
+        {
+            get { return _currentViewModel; }
+            set { SetProperty(ref _currentViewModel, value); }
+        }
     }
 }
