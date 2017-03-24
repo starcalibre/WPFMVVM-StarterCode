@@ -7,15 +7,16 @@ using Zza.Data;
 using ZzaDashboard.Customers;
 using ZzaDashboard.OrderPrep;
 using ZzaDashboard.Orders;
+using Microsoft.Practices.Unity;
 
 namespace ZzaDashboard
 {
     class MainWindowViewModel : BindableBase
     {
-        private CustomerListViewModel _customerListViewModel = new CustomerListViewModel();
+        private CustomerListViewModel _customerListViewModel;
         private OrderViewModel _orderViewModel = new OrderViewModel();
         private OrderPrepViewModel _orderPrepViewModel = new OrderPrepViewModel();
-        private AddEditCustomerViewModel _addEditCustomerViewModel = new AddEditCustomerViewModel();
+        private AddEditCustomerViewModel _addEditCustomerViewModel;
 
         private BindableBase _currentViewModel;
 
@@ -29,6 +30,9 @@ namespace ZzaDashboard
 
         public MainWindowViewModel()
         {
+            _customerListViewModel = ContainerHelper.Container.Resolve<CustomerListViewModel>();
+            _addEditCustomerViewModel = ContainerHelper.Container.Resolve<AddEditCustomerViewModel>();
+
             NavCommand = new RelayCommand<string>(OnNav);
             _customerListViewModel.PlaceOrderRequested += NavToOrder;
             _customerListViewModel.AddCustomerRequested += NavToAddCustomer;
