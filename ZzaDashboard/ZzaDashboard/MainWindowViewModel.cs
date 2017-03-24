@@ -33,6 +33,7 @@ namespace ZzaDashboard
             _customerListViewModel.PlaceOrderRequested += NavToOrder;
             _customerListViewModel.AddCustomerRequested += NavToAddCustomer;
             _customerListViewModel.EditCustomerRequested += NavToEditCustomer;
+            _addEditCustomerViewModel.Done += NavToCustomerList;
         }
 
         private void OnNav(string destination)
@@ -66,6 +67,11 @@ namespace ZzaDashboard
             _addEditCustomerViewModel.EditMode = true;
             _addEditCustomerViewModel.SetCustomer(customer);
             CurrentViewModel = _addEditCustomerViewModel;
+        }
+
+        private void NavToCustomerList()
+        {
+            CurrentViewModel = _customerListViewModel;
         }
     }
 }

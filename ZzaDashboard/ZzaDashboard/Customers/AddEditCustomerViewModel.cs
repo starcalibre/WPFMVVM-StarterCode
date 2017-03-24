@@ -11,6 +11,8 @@ namespace ZzaDashboard.Customers
     {
         private Customer _editingCustomer = null;
 
+        public event Action Done = delegate { };
+
         #region Properties
 
         private bool _editMode;
@@ -29,7 +31,18 @@ namespace ZzaDashboard.Customers
             set { SetProperty(ref _customer, value); }
         }
 
+        public RelayCommand CancelCommand { get; private set; }
+        public RelayCommand SaveCommand { get; private set; }
+
         #endregion
+
+        public AddEditCustomerViewModel()
+        {
+            CancelCommand = new RelayCommand(OnCancel);
+            SaveCommand = new RelayCommand(OnSave, CanSave);
+        }
+
+        #region Methods
 
         public void SetCustomer(Customer customer)
         {
@@ -49,5 +62,22 @@ namespace ZzaDashboard.Customers
                 target.Email = source.Email;
             }
         }
+
+        private bool CanSave()
+        {
+            return true;
+        }
+
+        private async void OnSave()
+        {
+            Done();
+        }
+
+        private void OnCancel()
+        {
+            Done();
+        }
+
+        #endregion
     }
 }
