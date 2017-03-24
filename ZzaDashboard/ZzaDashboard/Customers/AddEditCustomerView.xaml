@@ -13,8 +13,19 @@
         <conv:NegatableBooleanToVisibilityConverter x:Key="VisibilityConverter"/>
         <conv:NegatableBooleanToVisibilityConverter x:Key="NegVisibilityConverter"
                                                     Negate="True"/>
+        
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError"
+                         Value="True">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                            Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
-    
+       
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

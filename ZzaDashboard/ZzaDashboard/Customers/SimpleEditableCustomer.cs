@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ZzaDashboard.Customers
 {
-    class SimpleEditableCustomer : BindableBase
+    class SimpleEditableCustomer : ValidatableBindableBase
     {
         #region Properties
 
@@ -20,6 +21,7 @@ namespace ZzaDashboard.Customers
 
         private string _firstName;
 
+        [Required]
         public string FirstName
         {
             get { return _firstName; }
@@ -28,6 +30,7 @@ namespace ZzaDashboard.Customers
 
         private string _lastName;
 
+        [Required]
         public string LastName
         {
             get { return _lastName; }
@@ -36,6 +39,7 @@ namespace ZzaDashboard.Customers
 
         private string _phone;
 
+        [Phone]
         public string Phone
         {
             get { return _phone; }
@@ -44,6 +48,7 @@ namespace ZzaDashboard.Customers
 
         private string _email;
 
+        [EmailAddress]
         public string Email
         {
             get { return _email; }

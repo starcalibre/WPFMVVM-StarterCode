@@ -47,8 +47,15 @@ namespace ZzaDashboard.Customers
         public void SetCustomer(Customer customer)
         {
             _editingCustomer = customer;
+            if (Customer != null) Customer.ErrorsChanged -= RaiseCanExecuteChanged;
             Customer = new SimpleEditableCustomer();
+            Customer.ErrorsChanged += RaiseCanExecuteChanged;
             CopyCustomer(customer, Customer);
+        }
+
+        private void RaiseCanExecuteChanged(object sender, EventArgs e)
+        {
+            SaveCommand.RaiseCanExecuteChanged();
         }
 
         private void CopyCustomer(Customer source, SimpleEditableCustomer target)
@@ -65,7 +72,7 @@ namespace ZzaDashboard.Customers
 
         private bool CanSave()
         {
-            return true;
+            return !Customer.HasErrors;
         }
 
         private async void OnSave()
