@@ -12,12 +12,24 @@ namespace ZzaDashboard.Customers
     class CustomerListViewModel : BindableBase
     {
         private ICustomersRepository _repo;
+        private ObservableCollection<Customer> _allCustomers;
 
         private ObservableCollection<Customer> _customers;
         public ObservableCollection<Customer> Customers
         {
             get { return _customers; }
             set { SetProperty(ref _customers, value); }
+        }
+
+        private string _searchInput;
+        public string SearchInput
+        {
+            get { return _searchInput; }
+            set
+            {
+                SetProperty(ref _searchInput, value);
+                FilterCustomers(_searchInput);
+            }
         }
 
         public RelayCommand<Customer> PlaceOrderCommand { get; private set; }
@@ -34,6 +46,19 @@ namespace ZzaDashboard.Customers
             PlaceOrderCommand = new RelayCommand<Customer>(OnPlaceOrder);
             AddCustomerCommand = new RelayCommand(OnAddCustomer);
             EditCustomerCommand = new RelayCommand<Customer>(OnEditCustomer);
+        }
+
+        private void FilterCustomers(string searchInput)
+        {
+            if (string.IsNullOrWhiteSpace(searchInput))
+            {
+                Customers = new ObservableCollection<Customer>(_allCustomers);
+            }
+            else
+            {
+                Customers = new ObservableCollection<Customer>(_allCustomers
+                    .Where(c => c.FullName.ToLower().Contains(searchInput.ToLower())));
+            }
         }
 
         private void OnPlaceOrder(Customer customer)
@@ -53,8 +78,9 @@ namespace ZzaDashboard.Customers
 
         public async void LoadCustomers()
         {
-            Customers = new ObservableCollection<Customer>(
+            _allCustomers = new ObservableCollection<Customer>(
                 await _repo.GetCustomersAsync());
+            Customers = _allCustomers;
         }
     }
 }
